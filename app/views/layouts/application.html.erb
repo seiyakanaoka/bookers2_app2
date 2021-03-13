@@ -10,6 +10,41 @@
   </head>
 
   <body>
+    
+    <header>
+      
+      <% if user_signed_in? %>
+        <ul>
+          <li>
+            <%= link_to user_path(current_user) do %>Home<% end %>
+          </li>
+          <li>
+            <%= link_to users_path do %>Users<% end %>
+          </li>
+          <li>
+            <%= link_to books_path do %>Books<% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>logout<% end %>
+          </li>
+      <% else %>
+          <li>
+            <%= link_to root_path do %>Home<% end %>
+          </li>
+          <li>
+            <%= link_to home_about_path do %>About<% end %>
+          </li>
+          <li>
+            <%= link_to new_user_registration_path do %>sign up<% end %>
+          </li>
+          <li>
+            <%= link_to new_user_session_path do %>login<% end %>
+          </li>
+      </ul>
+      <% end %>
+      
+    </header>
+    
     <%= yield %>
   </body>
 </html>
