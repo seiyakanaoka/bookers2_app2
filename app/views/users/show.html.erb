@@ -1,3 +1,4 @@
+
 <div class="user">
   <h1>User info</h1>
   <%= attachment_image_tag @user, :profile_image, format: 'jpeg', size: "100x100" %>
@@ -11,7 +12,9 @@
       </tr>
     </tbody>
   </table>
-  <%= link_to edit_user_path(@user) do %>Edit<% end %>
+  
+    <%= link_to edit_user_path(@user) do %>Edit<% end %>
+
 </div>
 
 <div class="new-book">
