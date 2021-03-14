@@ -1,10 +1,18 @@
-<h1>welcome to <strong>Bookers!!</strong></h1>
+<div class="container">
+  <div class="row">
+    <div class="mx-auto col-md-offset-3 col-md-6">      
+      
+      <h1>welcome to <strong>Bookers!!</strong></h1>
 
-<p>In <strong>Bookers</strong>,</p>
+      <p>In <strong>Bookers</strong>,</p>
 
-<p>you can share and exchange your opinions , inpressions , and emotions</p>
+      <p>you can share and exchange your opinions , inpressions , and emotions</p>
 
-<p>about various books!</p>
+      <p>about various books!</p>
 
-<p><%= link_to new_user_session_path do %>login<% end %></p>
-<p><%= link_to new_user_registration_path do %>sign up<% end %></p>
+      <div class="row"><div class="mx-auto col-md-6"><%= link_to(new_user_session_path, class: "btn btn-info btn-block mb-3") do %>login<% end %></div></div>
+      <div class="row"><div class="mx-auto col-md-6"><%= link_to(new_user_registration_path, class: "btn btn-success btn-block") do %>sign up<% end %></div></div>
+      
+    </div>
+  </div>
+</div>
