@@ -2,37 +2,7 @@
   <div class="row">
     
     <div class="col-md-3">
-      <div class="user">
-        <h1>User info</h1>
-        <%= attachment_image_tag @user, :profile_image, format: 'jpeg', size: "100x100" %>
-        <table class="table mt-3">
-          <tbody>
-            <tr>
-              <td>name</td><td><%= @user.name %></td>
-            </tr>
-            <tr>
-              <td>introduction</td><td><%= @user.introduction %></td>
-            </tr>
-          </tbody>
-        </table>
-        <%= link_to(edit_user_path(@user), class: "btn btn-outline-secondary btn-block text-dark") do %>Edit<% end %>
-      </div>
-
-      <div class="new-book">
-        <h1>New book</h1>
-        <%= form_with model:@books, local: true do |f| %>
-          <div class="field">
-            <%= f.label "Title" %><br />
-            <%= f.text_field :title %>
-          </div>
-
-          <div class="field mt-3">
-            <%= f.label "Opinion" %><br />
-            <%= f.text_area :body %>
-            <%= f.submit 'Create Book', class: "btn btn-success mt-3" %>
-          </div>
-        <% end %>
-      </div>
+      <%= render 'books/list', book: @book, user: @user %>
     </div>
 
     <div class="mx-auto col-md-offset-i col-md-8">
@@ -41,7 +11,8 @@
          <table class="table table-hover">
             <tbody>
                 <tr>
-                  <td><%= link_to user_path(@user) do %><%= attachment_image_tag @user, :profile_image, size: "50x50" %><br /><%= @user.name %><% end %></td>
+                  <td>❤<%= @book.favorites.count %>いいね</td>
+                  <td><%= link_to user_path(@user) do %><%= attachment_image_tag @user, :profile_image, size: "50x50", class: "rounded-circle" %><br /><%= @user.name %><% end %></td>
                   <td><%= link_to book_path(@book) do %><%= @book.title %><% end %></td>
                   <td><%= @book.body %></td>
                   <% if @user == current_user %>
@@ -51,6 +22,46 @@
                 </tr>
             </tbody>
           </table>
+          
+          <div class="comment-all border-top">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th>comment</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <% @book.book_comments.each do |comment| %>
+                  <tr>
+                    <td><%= attachment_image_tag comment.user, :profile_image, size: "50x50", class: "rounded-circle" %></td>
+                    <td><%= comment.user.name %></td>
+                    <td><%= comment.comment %></td>
+                    <% if current_user == comment.user %>
+                      <td><%= link_to(book_book_comment_path(comment.book, comment), method: :delete, class: "btn btn-danger") do %>Destroy<% end %></td>
+                    <% end %>
+                    <td></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="comment-form border-top">
+            <h3>Comment form</h3>
+            <%= attachment_image_tag current_user, :profile_image, size: "50x50", class: "rounded-circle mt-3 mb-3" %>
+            <%= form_with(model:[@book, @book_comment], local: true) do |f| %>
+              <div class="field">
+                <%= f.text_area :comment, placeholder: "コメントをここに", size: "60" %><br />
+                <%= f.submit "投稿する", class: "btn btn-secondary mt-3" %>
+              </div>
+            <% end %>
+          </div>
+
       </div>
       
   </div>

@@ -56,8 +56,8 @@
       </nav>
       
     </header>
-    <main>
-      <div class="flash">
+    <main class="main">
+      <div class="flash text-success">
         <% flash.each do |key, value| %>
           <%= content_tag(:div, value, class: "#{key}") %>
         <% end %>
@@ -66,7 +66,7 @@
     </main>
     
     <footer>
-      <div class="container mt-5">
+      <div class="container">
         <div class="row">
           <div class="mx-auto col-md-offset-3 col-md-6">
             <p class="text-center">CopyRight Infratop.inc</p>
